@@ -6,19 +6,20 @@ fn main() {
         .expect("Could not read input!");
     let content = content.trim();
     let content = content.split("\n");
-    let content: Vec<u32> = content.map(|x| x.parse().expect("Could not parse string!")).collect();
+    let content = content.map(|x| -> u32 {x.parse().expect("Could not parse string!")});
+    let vec: Vec<u32> = content.collect();
+    // let mut it = content.iter();
     // TODO make this work by
     // - iterating over content
     // - using iterators, but then how do I tell parse that I want u32 integers?
-    for i in 0..Vec::len(&content) {
-        for j in 0..Vec::len(&content) {
-            for k in 0..Vec::len(&content) {
-                if content[i] + content[j] + content[k] == 2020 {
-                    println!("{} * {} * {} = {}", content[i], content[j], content[k], content[i] * content[j] * content[k]);
+    for i in vec.iter() {
+        for j in vec.iter() {
+            for k in vec.iter() {
+                if i + j + k == 2020 {
+                    println!("{} * {} * {} = {}", i, j, k, i * j * k);
                     return;
                 }
             }
         }
     }
-    println!("input content: {:#?}", content);
 }
