@@ -6,7 +6,7 @@ fn main() {
     let passwords = fs::read_to_string("../passwords")
         .expect("Could not read file ../passwords");
     let passwords: Vec<_> = passwords.trim().split("\n").collect();
-    let re = Regex::new(r"^(\d*)-(\d*) (\w): (\w*)").unwrap();
+    let re = Regex::new(r"^(\d*)-(\d*) (\w): (.*)").unwrap();
     let mut invalid_passwords: Vec<usize> = Vec::new();
     for (i, password) in passwords.iter().enumerate() {
         for cap in re.captures_iter(password) {
@@ -20,7 +20,7 @@ fn main() {
                 .count();
             if (count_restricted_chars < min) | (count_restricted_chars > max) {
                 invalid_passwords.push(i);
-                println!("invalid password found: count {}, pw {}",
+                println!("invalid pw found: count {}, pw {}",
                          count_restricted_chars, password);
             }
         }
